@@ -1,14 +1,14 @@
 """
 Django test cases with BrowserStack support
 """
-
+import os
 import time
 import subprocess
 from django.test import LiveServerTestCase
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 from selenium import webdriver
-
+browserstack_fpath = os.path.join(__file__, "contrib", "BrowserStackLocal")
 
 def get_settings(name):
     """
@@ -42,13 +42,15 @@ class BrowserStackLiveServerTestCase(LiveServerTestCase):
         super(BrowserStackLiveServerTestCase, cls).setUpClass()
 
         # Run BrowserStackLocal
-        cls.browserstacklocal = subprocess.Popen(['BrowserStackLocal',
+        cls.browserstacklocal = subprocess.Popen([browserstack_fpath,
                                                   get_settings('BROWSERSTACK_ACCESS_KEY'),
                                                  '%s,%d,0' % (cls.server_thread.host,
                                                               cls.server_thread.port)],
                                                  stdout=subprocess.PIPE,
-                                                 stderr=subprocess.PIPE)
-        time.sleep(2)  # BrowserStackLocal must be initialized, I don't know a better
+                                                 stderr=subprocess.PIPE,
+                                                 shell=True,
+        )
+        time.sleep(8)  # BrowserStackLocal must be initialized, I don't know a better
                        # way to know if it is ready.
         # Check webdriver parameters
         desired_capabilities = cls.desired_capabilities.copy()
