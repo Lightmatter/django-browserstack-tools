@@ -8,7 +8,8 @@ from django.test import LiveServerTestCase
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 from selenium import webdriver
-browserstack_fpath = os.path.join(__file__, "contrib", "BrowserStackLocal")
+dirname = os.path.dirname(__file__)
+browserstack_fpath = os.path.join(dirname, "contrib", "BrowserStackLocal")
 
 def get_settings(name):
     """
