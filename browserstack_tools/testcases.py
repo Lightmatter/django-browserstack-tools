@@ -41,12 +41,13 @@ class BrowserStackLiveServerTestCase(LiveServerTestCase):
     def setUpClass(cls):
         # Django launchs live server
         super(BrowserStackLiveServerTestCase, cls).setUpClass()
+        args = " ".join([browserstack_fpath,
+                get_settings('BROWSERSTACK_ACCESS_KEY'),
+                '%s,%d,0' % (cls.server_thread.host,
+                             cls.server_thread.port)])
 
         # Run BrowserStackLocal
-        cls.browserstacklocal = subprocess.Popen([browserstack_fpath,
-                                                  get_settings('BROWSERSTACK_ACCESS_KEY'),
-                                                 '%s,%d,0' % (cls.server_thread.host,
-                                                              cls.server_thread.port)],
+        cls.browserstacklocal = subprocess.Popen(args,
                                                  stdout=subprocess.PIPE,
                                                  stderr=subprocess.PIPE,
                                                  shell=True,
