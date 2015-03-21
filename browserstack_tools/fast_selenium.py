@@ -30,7 +30,7 @@ class BsRemoteConnection(RemoteConnection):
     http://code.google.com/p/selenium/wiki/JsonWireProtocol
     """
     # akshay:ryan@127.0.0.1:4444
-    def __init__(self, remote_server_addr, *args):
+    def __init__(self, remote_server_addr, *args, **kwargs):
         # Attempt to resolve the hostname and get an IP address.
         super(BsRemoteConnection, self).__init__(remote_server_addr)
         parsed_url = parse.urlparse(remote_server_addr)
