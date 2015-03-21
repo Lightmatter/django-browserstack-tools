@@ -52,7 +52,7 @@ class BsRemoteConnection(RemoteConnection):
 
         self._conn = httplib.HTTPConnection(str(addr),str(parsed_url.port or 80))
 
-    def _request(self, url, data=None, method=None):
+    def _request(self, url, data=None, method=None, *args, **kwargs):
         """
         Send an HTTP request to the remote server.
 
