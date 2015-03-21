@@ -1,12 +1,14 @@
 # Copyright 2013 BrowserStack
 
 import base64
-import httplib
+try:
+  import httplib
+except ImportError:
+  import http.client as httplib
+
 import logging
 import socket
-import string
 from selenium.webdriver.remote import utils
-import urllib2 as url_request
 from selenium.webdriver.remote.command import Command
 from selenium.webdriver.remote.errorhandler import ErrorCode
 from selenium.webdriver.remote.webdriver import RemoteConnection
@@ -14,7 +16,10 @@ from selenium.webdriver.remote.webdriver import RemoteConnection
 try:
   from urllib2 import parse
 except ImportError:
-  import urlparse as parse
+  try:
+    import urlparse as parse
+  except ImportError:
+    import urllib.parse as parse
 
 LOGGER = logging.getLogger(__name__)
 class BsRemoteConnection(RemoteConnection):

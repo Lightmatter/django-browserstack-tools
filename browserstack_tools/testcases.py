@@ -8,7 +8,7 @@ from django.test import LiveServerTestCase
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 from selenium import webdriver
-import fast_selenium
+from . import fast_selenium
 dirname = os.path.dirname(__file__)
 browserstack_fpath = os.path.join(dirname, "contrib", "BrowserStackLocal")
 
